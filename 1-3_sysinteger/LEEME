@@ -1,0 +1,123 @@
+f1.Introducción:
+		El presente programa soluciona el problema de muchos administradores 
+		para saber si el contenido de ciertos directorios que contienen ficheros
+		críticos, han sido modificados, bien por terceros con intenciones
+		malignas o bien por deterioro de los sistemas de almacenamiento así como
+		a diversas perturbaciones del entorno, como radiaciones electromagneticas
+		,etc.
+
+2.Análisis de las posibles soluciones:
+		La soluciones posibles ha este problema pueden ser en principio 2:
+		a) Un programa que vigile constantemente el contenido de dicho directorio
+		por medio de un script en segundo plano, el cual avisará en el momento
+		que se produzca un evento no deseado, como modificación, eliminación o
+		addicción de un fichero no deseado. El aviso se podía incluso buscar la
+		para que fuese via e-mail, sms, etc.
+
+		b) La otra opción es crear un fichero donde se almacenen los diferentes
+		estados de integridad de los ficheros en un instante dado y posteriormente
+		cuando el administrador desee comprobar si alguno de ellos ha sido 
+		alterado, pues acudir de nuevo al programa para que en función de los estados
+		de ese fichero de integridad compare y avise si alguno de esos ficheros
+		ha sufrido una alteración.
+
+3.Justificación de la solución elegida:
+		He elegido la segunda opción por además de ser la propuesta para este 
+		proyecto en concreto, pues por ser una solución valida para la mayoria
+		de sistemas en la que el estado de los ficheros es importante que se
+		mantengan íntegros, pero quizas no lo sean de una importancia vital
+		que puedan ser comprometidos sistemas a gran escala y de información 
+		altamente sensible.
+
+		Si ese fuese el caso, quizas sería mejor la otra opción.
+
+4.Planteamiento de la solución elegida:
+	4.1.Cuestiones generales de diseño:
+		El tema de las opciones está planteado en este script por medio del módulo
+		optparse.
+		La forma en la que voy a almacenar el estado de integridad de los ficheros
+		del directorio que se toma como argumento es guardándola en un fichero de
+		texto plano en el disco duro, por defecto el fichero se llamará hash.log
+		y se creará en el mismo directorio donde se ejecute el script, aunque esto
+		es modificable, con la opcion -f o --file, donde se podrá modificar el
+		nombre del fichero y su ruta.
+
+		El contenido de este fichero consta de una seie de lineas de exto en el
+		que en cada linea aparece en primer lugar la ruta absoluta del fichero entre
+		comillas dobles. Le sigue un espacio y a continuación estará el hash
+		correspondiente a ese fichero.
+
+		He preferido que el fichero esté entre comillas para facilitar el posterior 
+		tratamiento de las lineas y saiendo que si me guiaba por los espacios en blanco
+		podría fallar mi planteamiento ante la posibilidad de que aparezcan, nombres
+		de ficheros y/o rutas con espacios en blanco.
+
+		El proceso de comprobar el estado de integridad de los ficheros lo hare
+		comprobando que el hash actual del fichero sigue siendo el mismo que el
+		que está almacenado en el fichero de integridad, para lo que en primer 
+		lugar volcaré el contenido de dicho fichero en un diccionario en el que
+		la clave será la ruta absoluta y nombre de ese fichero y su valor por tanto
+		será su hash correspondiente.
+
+		Por cierto el hash elegido por defecto ha sido sha224, porque no es excesivamente
+		lento en ficheros grandes, y ademas ha día de hoy no está aún roto.
+
+		Bueno, una vez creado el diccionario y hecho el hash a cada correspondiente
+		fichero en un bucle en el que se compara uno a uno los ficheros, en el
+		momento que hay un hash que no coincida, pues aparecerá por la salida estandar
+		de errores.
+	
+	4.2.Requerimientos: 
+		Para ejecutar este programa simplemente se necesitaŕa tener el intérprete 
+		de python instalado en la computadora.
+
+	4.3.Instalación:
+		Este programa no necesita de ninguna instalación simplemente darle 
+		permisos de ejecución y ejecutarlo.
+
+	4.4.Uso:	 
+		sysinteger.py [-h] | [-r] (-C | -P) directorio
+
+		Opciones:
+		  -h, --help            muestra la ayuda
+		  -r, --recursivo       funciona recursivamente
+		  -C, --comprueba       comprueba la integridad de todos los ficheros del
+		                        directorio (accion por defecto, si no se indica
+		                        ninguna).Los cambios detectados se muestran por la
+		                        salida estandar de errores.
+		  -P, --prepara         prepara la comprobacion de integridad de todos los
+		                        ficheros del directorio
+		  -f FILE, --file=FILE  opcion para indicar en que fichero guardar los hashes
+		                        de los ficheros. Por defecto ./hash.log
+
+
+5."Diario" de versiones (Changelog): 
+
+		changeset:   3:e96c547fc24e
+		date:        Wed Dec 01 20:57:30 2010 +0100
+		summary:     Solucionado el error que aparecia cuando se introducia un directorio 
+		a analizar o realizar la integridad que no tenia la barra / al final, es decir 
+		solo funcionaba si ponias /home/toni/directorio1/ pero si ponia /home/toni/directorio1 
+		fallaba, ahora no. Tambien solucionado el problema de que no contemplaba ninguna 
+		acción por defecto, ahora si no se indica nada hace la opción -C, tal como dice 
+		el enunciado del problema
+
+		changeset:   2:ee39c5d940c9
+		date:        Wed Dec 01 01:35:57 2010 +0100
+		summary:     Modificado para que los cambios detectados se muestren por la 
+		salida estandar de errores
+
+		changeset:   1:677caf4fca33
+		date:        Wed Dec 01 01:27:40 2010 +0100
+		summary:     El script esta terminado excepto el fichero LEEME, aunque he añadido 
+		comentarios al script. Procesa bien las tres opciones. He añadido la posibilidad de 
+		modificar el nombre del fichero en cual voy a guardar los nombres(con su ruta) 
+		de los ficheros y su correspondiente hash. Voy a seguir pensando posibles opciones
+		
+		changeset:   0:3b27b8f2cbfc
+		date:        Tue Nov 30 18:59:31 2010 +0100
+		summary:     El script hace bien la opcion -P, creando un fichero en el mismo 
+		directorio donde se encuentre el script con los ficheros y su correspondiente 
+		clave. Tambien hace bien la opcion -r, tengo funcion para hacer el -C, pero está 
+		comentada porque no aun la tengo que terminar. Aun no he empezado el LEEME
+

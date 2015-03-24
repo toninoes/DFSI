@@ -1,0 +1,79 @@
+1.Introducción:
+		Este script consiste en el mismo problema de ftplog, con la variación de
+		que el script se queda monitorizando la entrada de nuevos entradas/salidas
+		de un servidor ftp. Pudiendo asi el usuario filtrar un campo especifico
+		dentro del log.
+
+2.Análisis de las posibles soluciones:
+	
+
+3.Justificación de la solución elegida:
+		
+4.Planteamiento de la solución elegida:
+	4.1.Cuestiones generales de diseño:
+		En un primer momento plantee el problema de forma que cuando se detecte
+		un evento de cambio en el fichero, creaba una lista con el contenido de
+		éste y tomaba solo la ultima cadena de esa lista, que era a la que luego 
+		le aplicaba los filtros. Esto planteaba el problema de que entrasen varias
+		líneas en bloque.
+
+		Posteriormente y definitivamente lo que he hecho es tal y como empieza
+		a monitorizar, avanzo hasta el final del fichero, y luego cada vez que
+		detecto un cambio, pues voy avanzando y tomando todas las lineas que entren
+		bien juntas(en bloque) o una tras otra y las meto en una lista, la cual
+		voy iterando sobre ella para aplicar a cada elemento de la lista, los
+		filtros correspondientes.
+	
+	4.2.Requerimientos: 
+		Para ejecutar este programa simplemente se necesitaŕa tener el intérprete 
+		de python instalado en la computadora.
+
+	4.3.Instalación:
+		Este programa no necesita de ninguna instalación simplemente darle 
+		permisos de ejecución y ejecutarlo.
+
+	4.4.Uso:	 
+
+		ftplogmon.py [opciones] arg1 arg2
+
+		Options:
+  		-h, --help            show this help message and exit
+  		-v, --completo        muestra los registros(lineas) completos. Es el
+                        comportamiento por defecto.
+  		-q, --filtrables      muestra unicamente los campos filtrables de los
+                        registros
+  		-f STRING, --fich=STRING
+                        filtra los registros que coincidan total o
+                        parcialmente con el nombre del fichero
+  		-u STRING, --usuario=STRING
+                        filtra los registros que coincidan total o
+                        parcialmente con el usuario indicado
+  		-r STRING, --host=STRING
+                        filtra los registros que coincidan total o
+                        parcialmente con el host indicado.   (ObservaciÃ³n:
+                        para forzar una direcciÃ³n, se debe usar $ ;ej.
+                        192.168.1.1$ para excluir 192.168.1X[X])
+  		-H HH, --hour=HH      filtra los registros que coincidan con la hora
+                        indicada
+  		-d DD, --day=DD       filtra los registros que coincidan con el dia indicado
+  		-m MM, --month=MM     filtra los registros que coincidan con el mes indicado
+  		-y AAAA, --year=AAAA  filtra los registros que coincidan con el anyo
+                        indicado
+  		-F FILE, --file=FILE  ficheroÂ log,Â porÂ defectoÂ /var/log/vsftp.log
+
+
+
+5."Diario" de versiones (Changelog): 
+changeset:   1:ef428eebadb2
+tag:         tip
+user:        antoniorr
+date:        Thu Dec 16 11:19:03 2010 +0100
+summary:     Ya funciona bien incluso si entran varias lineas en bloque, lo estaba haciendo bien en clase pero probablemente lo probaba mal, ya que lo hacia con el gedit. Para probarlo lo hago con echo desde otra tarminal, añadiendole al final las cadenas con el formato adecuado, o mas cadenas con varios echo && echo
+
+changeset:   0:691062847cab
+user:        antoniorr
+date:        Tue Dec 14 18:57:12 2010 +0100
+summary:     Primera versión. Funciona bien, pero estoy buscando la forma de que no sólo muestre la ultima linea del log, ya que en el caso de que varias lineas fuesen generadas en el mismo instante de tiempo, sólo sale la última.
+
+
+

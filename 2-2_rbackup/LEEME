@@ -1,0 +1,7 @@
+Mi intencion es que el cliente haga a medida que va listando los ficheros contenidos en el directorio el hash de cada
+uno de los ficheros y haga una peticion GET al servidor en la que incluya el nombre del fichero y su hash.
+Posteriormente el servidor comprobará si existe ese fichero dentro de los backups y en caso de existir comprueba
+si el hash que el tiene es el mismo que el que le han mandado
+
+
+en caso de que el hash sea diferente o no contenga dicho fichero, el cliente enviará dicho fichero al servidor el cual lo almacenará en el directorio de backups.

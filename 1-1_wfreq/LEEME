@@ -1,0 +1,39 @@
+Ïndice recomendado par un archivo LEEME
+=======================================
+
+1.Introducción
+2.Análisis de las posibles soluciones
+3.Justificación de la solución elegida 
+4.Planteamiento de la solución elegida 
+	4.1.Cuestiones generales de diseño
+	4.2.Requerimientos 
+	4.3.Instalación
+	4.4.Uso	 
+5."Diario" de versiones (Changelog) 
+6.Rendimiento
+	6.1 Tiempos de ejecución
+	6.2 Consumo de recursos
+7.TODO
+
+Abro ambos ficheros y los almaceno en las cadenas "texto" y "textoG" respectivamente
+
+Luego meto en un lista todas las palabras de greatworks.txt, previamente tratadas 
+
+En listaG meto cada una de las palabras del glosario.
+
+Declaro 2 diccionarios uno para luego meter ahi las palabras no incluidas en Glosario (dicc) y otro para meter ahi todas las del glosario (diccG)
+
+Introduzco todas las palabras del glosario que estan en listaG en el diccionario diccG, con sus valores a cero.
+
+Meto todas las palabras de lista en en el diccionario dicc, pero solo las que no estan en diccG
+
+Borro la lista (lista) anterior, para incluir solo ahora en ella las que entraron en dicc
+
+Para que muestre solo las 30 primeras y se pare pongo un contador y cuando llegue a 30 se salga
+
+Luego cuento el de total palabras que se encuentran en el glosario, para ello del  diccionario_Glosario (diccG) solo cuento las May. de 0
+
+Al total anterior le sumo todas las entradas de dicc, ya que todas se repiten al menos 1 vez
+
+Finalmente hago los porcentajes y escribo.
+

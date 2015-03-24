@@ -1,0 +1,56 @@
+
+Con la funcion sniff de scapy voy capturando en la interfaz que yo defina, por
+defecto eth0 los paquetes que cumplan el filtro "filter", es decir, que	
+usen UDP y el puerto 67. En principio no distingue entre puerto origen y destino
+pero en este caso nos da igual, ya que solo va ha capturar un paquete, en mi 	
+caso, el que me interesa (DHCP Discovery).	
+									
+a funcion sniff, devuelve una lista, en este caso de 1 elemento (a[0]), el cual	
+tiene una serie de atributos. El que me interesa tomar es 'src', donde esta la	
+MAC de origen del equipo que hace la peticion. Esa MAC la voy agregando a una	
+lista para que si detecta un nuevo pauete con esa MAC, la descarte.				
+Con las MACs de los equipos solicitantes y aumentando en 1 cada vez en las IPs,	
+voy generando el fichero dhcp.conf		
+
+Finalmente debe tomar un aspecto tal que éste:
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+range 192.168.1.1 192.168.1.100;
+option routers 192.168.1.254;
+option broadcast-address 192.168.1.255;
+}
+
+host 101{
+hardware ethernet fb:e6:94:49:3c:c7;
+fixed-address 192.168.1.101;
+}
+
+host 102{
+hardware ethernet dc:21:75:96:0e:c3;
+fixed-address 192.168.1.102;
+}
+
+host 103{
+hardware ethernet e8:e7:02:88:62:d4;
+fixed-address 192.168.1.103;
+}
+
+host 104{
+hardware ethernet 00:1a:2b:18:e5:ab;
+fixed-address 192.168.1.104;
+}
+
+host 105{
+hardware ethernet d6:9e:11:a7:f2:0a;
+fixed-address 192.168.1.105;
+}
+
+Para generar peticiones se puede hacer:
+
+-Reiniciando los equipos para que en el reinicio hagan un peticion de IP
+
+-Sin reiniciar se puede forzar a hacer una petición con dhclient
+	ej.- sudo dhclient eth0
+
+-O bien utilizar la herramienta generaDiscoverys.py que incluyo en el proyecto										
+
