@@ -5,11 +5,10 @@ import optparse
 from scapy.all import sniff
 
 #####################################################################################
-# 						Necesario tener instalado scapy								#
-# 					   sudo apt-get install python-scapy							#
+# Necesario tener instalado scapy: sudo apt-get install python-scapy
 #####################################################################################
-# Necesario ejecutar script como administrador, ya que scapy necesita tener control	#
-# privilegiado sobre las interfaces.												#
+# Necesario ejecutar script como administrador, ya que scapy necesita tener control
+# privilegiado sobre las interfaces.
 #####################################################################################
 
 def proc_opts(): 
@@ -26,7 +25,7 @@ def proc_opts():
 	return comlist.parse_args(sys.argv)
 
 #####################################################################################
-# 								INICIO DEL PROGRAMA									#
+# 	INICIO DEL PROGRAMA
 #####################################################################################
 
 opts, args = proc_opts() 
@@ -45,17 +44,17 @@ try:
 
 
 #####################################################################################
-# Ahora con la funcion sniff de scapy voy capturando en la interfaz que yo defina	#
-# , por defecto eth0 los paquetes que cumplan el filtro "filter", es decir, que		#
-# usen UDP y el puerto 67. En principio no distingue entre puerto origen y destino	#
-# pero en este caso nos da igual, ya que solo va ha capturar un paquete, en mi 		#
-# caso, el que me interesa (DHCP Discovery).										#
-# La funcion sniff, devuelve una lista, en este caso de 1 elemento (a[0]), el cual	#
-# tiene una serie de atributos. El que me interesa tomar es 'src', donde esta la	#
-# MAC de origen del equipo que hace la peticion. Esa MAC la voy agregando a una		#
-# lista para que si detecta un nuevo pauete con esa MAC, la descarte.				#
-# Con las MACs de los equipos solicitantes y aumentando en 1 cada vez en las IPs,	#
-# voy generando el fichero dhcp.conf												#
+# Ahora con la funcion sniff de scapy voy capturando en la interfaz que yo defina
+# , por defecto eth0 los paquetes que cumplan el filtro "filter", es decir, que
+# usen UDP y el puerto 67. En principio no distingue entre puerto origen y destino
+# pero en este caso nos da igual, ya que solo va ha capturar un paquete, en mi
+# caso, el que me interesa (DHCP Discovery).
+# La funcion sniff, devuelve una lista, en este caso de 1 elemento (a[0]), el cual
+# tiene una serie de atributos. El que me interesa tomar es 'src', donde esta la
+# MAC de origen del equipo que hace la peticion. Esa MAC la voy agregando a una
+# lista para que si detecta un nuevo pauete con esa MAC, la descarte.
+# Con las MACs de los equipos solicitantes y aumentando en 1 cada vez en las IPs,
+# voy generando el fichero dhcp.conf
 #####################################################################################
 
 	while True:
