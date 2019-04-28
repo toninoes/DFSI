@@ -28,9 +28,9 @@ def proc_opts():
 	return comlist.parse_args(sys.argv)
 
 #######################################################################################
-# Función que crea y devuelve un diccionario por cada linea de log recibida:		  #
-#  -Clave: bien 'hour', 'day', 'host',...											  #
-#  -Valor: El correspondiente al encontrado en la posición de esa linea.			  #
+# Función que crea y devuelve un diccionario por cada linea de log recibida:
+#  -Clave: bien 'hour', 'day', 'host',...
+#  -Valor: El correspondiente al encontrado en la posición de esa linea.
 #######################################################################################
 
 def logfields(l):	
@@ -47,11 +47,11 @@ def logfields(l):
 	return dfields 	
 
 #######################################################################################
-# Función que compara 2 dicci., uno creado con las opciones del usuario (dfilters)	  #
-# y que se crea más abajo del código y otro diccionario que se acaba de crear		  #
-# arriba y que se crea segun el contenido de la cada linea del log. Devolverá True	  #
-# si todos las opciones del usuario se encuentran en esa linea. Y False si al menos	  #
-# una de esas opciones no se encuentra en esa linea.								  #
+# Función que compara 2 dicci., uno creado con las opciones del usuario (dfilters)
+# y que se crea más abajo del código y otro diccionario que se acaba de crear
+# arriba y que se crea segun el contenido de la cada linea del log. Devolverá True
+# si todos las opciones del usuario se encuentran en esa linea. Y False si al menos
+# una de esas opciones no se encuentra en esa linea.
 #######################################################################################
 
 def logfilter(dfields, dfilters):
@@ -62,15 +62,15 @@ def logfilter(dfields, dfilters):
 	return True			
 
 #######################################################################################
-# Defino la clase MiHilo, la cual hereda de la clase Thread, su misión es cojer de    #
-# la cola (si hay algo) y quedarse con una lista, la cual contendra las últimas lineas#
-# que se han generado en el log ftp, a las cuales posteriormente les aplicará los	  #
-# correspondientes filtros. Cada vez que imprima algo por la salida de errores dirá	  #
-# además que hilo se ha encargado de ello.											  #
-# El diccionario (dicc) contiene:													  #
-#  -Clave: nombre y ruta absoluta de un fichero										  #
-#  -Valor: Objeto fichero abierto y con el puntero situado en la ultima posición de	  #
-#		   lectura realizada.														  #
+# Defino la clase MiHilo, la cual hereda de la clase Thread, su misión es cojer de
+# la cola (si hay algo) y quedarse con una lista, la cual contendra las últimas lineas
+# que se han generado en el log ftp, a las cuales posteriormente les aplicará los
+# correspondientes filtros. Cada vez que imprima algo por la salida de errores dirá
+# además que hilo se ha encargado de ello.
+# El diccionario (dicc) contiene:
+#  -Clave: nombre y ruta absoluta de un fichero
+#  -Valor: Objeto fichero abierto y con el puntero situado en la ultima posición de
+#		   lectura realizada.
 #######################################################################################
 
 class MiHilo(threading.Thread):
@@ -95,15 +95,15 @@ class MiHilo(threading.Thread):
 				print "Fin"
 
 #######################################################################################
-# Defino la clase MiProceso, la cual hereda de la clase Process, su misión es cojer de#
-# la cola (si hay algo) y quedarse con una lista, la cual contendra las últimas lineas#
-# que se han generado en el log ftp, a las cuales posteriormente les aplicará los	  #
-# correspondientes filtros. Cada vez que imprima algo por la salida de errores dirá	  #
-# además que hilo se ha encargado de ello.											  #
-# El diccionario (dicc) contiene:													  #
-#  -Clave: nombre y ruta absoluta de un fichero										  #
-#  -Valor: Objeto fichero abierto y con el puntero situado en la ultima posición de	  #
-#		   lectura realizada.														  #
+# Defino la clase MiProceso, la cual hereda de la clase Process, su misión es cojer de
+# la cola (si hay algo) y quedarse con una lista, la cual contendra las últimas lineas
+# que se han generado en el log ftp, a las cuales posteriormente les aplicará los
+# correspondientes filtros. Cada vez que imprima algo por la salida de errores dirá
+# además que hilo se ha encargado de ello.
+# El diccionario (dicc) contiene:
+#  -Clave: nombre y ruta absoluta de un fichero
+#  -Valor: Objeto fichero abierto y con el puntero situado en la ultima posición de
+#		   lectura realizada.
 #######################################################################################
 
 class MiProceso(multiprocessing.Process):
@@ -128,10 +128,10 @@ class MiProceso(multiprocessing.Process):
 				print "Fin"
 
 #######################################################################################
-### 							INICIO DEL PROGRAMA						    	    ###
+# INICIO DEL PROGRAMA
 #######################################################################################
-# Importante: los módulos no deberían ejecutar código al ser importados por eso está: #
-#						if __name__ == '__main__':									  #
+# Importante: los módulos no deberían ejecutar código al ser importados por eso está:
+# if __name__ == '__main__':
 #######################################################################################
 
 if __name__ == '__main__':
@@ -139,8 +139,8 @@ if __name__ == '__main__':
 	opts, args = proc_opts() 
 	
 #######################################################################################
-# Diccionario creado con las opciones del usuario y el servirá para comparar con	  #
-# el otro diccionario formado en cada lectura de linea de log.					  	  #
+# Diccionario creado con las opciones del usuario y el servirá para comparar con
+# el otro diccionario formado en cada lectura de linea de log.
 #######################################################################################
 
 	dfilters = {}
@@ -160,10 +160,10 @@ if __name__ == '__main__':
 		dfilters['year'] = opts.year
 
 #######################################################################################
-# El diccionario (dicc) contiene:													  #
-#  -Clave: nombre y ruta absoluta de un fichero										  #
-#  -Valor: Objeto fichero abierto y con el puntero situado al final del fichero (EOF) #
-#		   eso lo hago con el .seek(0,2)											  #
+# El diccionario (dicc) contiene:
+#  -Clave: nombre y ruta absoluta de un fichero
+#  -Valor: Objeto fichero abierto y con el puntero situado al final del fichero (EOF)
+#		   eso lo hago con el .seek(0,2)
 #######################################################################################
 
 	dicc={}
@@ -173,11 +173,11 @@ if __name__ == '__main__':
 		dicc[fichero].seek(0,2)
 
 #######################################################################################
-# Creo una cola que utilizaré para ir añadiendo los nombres y rutas absoluta de los	  #
-# ficheros que generan el evento buscado.											  #
-# Utilizo multiprocessing.Queue() para los procesos, ya que aunque no los utilizo,	  #
-# implementa algunos métodos más que Queue.Queue() y se adapta mejor que a este 	  #
-# último.																			  #
+# Creo una cola que utilizaré para ir añadiendo los nombres y rutas absoluta de los
+# ficheros que generan el evento buscado.
+# Utilizo multiprocessing.Queue() para los procesos, ya que aunque no los utilizo,
+# implementa algunos métodos más que Queue.Queue() y se adapta mejor que a este
+# último.
 #######################################################################################
 
 	if opts.procesos:
@@ -186,22 +186,22 @@ if __name__ == '__main__':
 		q = Queue.Queue()
 
 #######################################################################################
-# Creo un objeto WatchManager, que provee funciones de vigilancia					  #
+# Creo un objeto WatchManager, que provee funciones de vigilancia
 #######################################################################################	
 
 	wm = pyinotify.WatchManager() 
 
 #######################################################################################	
-# Aquí establezco la máscara o los eventos de los que voy a estar pendiente		      #
+# Aquí establezco la máscara o los eventos de los que voy a estar pendiente
 #######################################################################################	
 
 	mask = pyinotify.IN_MODIFY 
 
 #######################################################################################
-# aqui defino una clase, la cual hereda de ProcessEvent y manejará las notificaciones #
-# especificamente cuando detecte una modificacion "_IN_MODIFY", simplemente lo que	  #
-# Hace cuando detecta una modificación en un fichero será meter en la cola "q", el	  #
-# nombre y ruta del fichero que ha generado ese evento.								  #
+# aqui defino una clase, la cual hereda de ProcessEvent y manejará las notificaciones
+# especificamente cuando detecte una modificacion "_IN_MODIFY", simplemente lo que
+# Hace cuando detecta una modificación en un fichero será meter en la cola "q", el
+# nombre y ruta del fichero que ha generado ese evento.
 #######################################################################################
 
 	class EventHandler(pyinotify.ProcessEvent):		
@@ -209,42 +209,42 @@ if __name__ == '__main__':
 			q.put(event.pathname)
 
 #######################################################################################
-# Ahora instancio la clase ThreadedNotifier, que creará un objeto notificador a modo  #
-# de hilo. Luego comienza el notificador (se crea el hilo con notifier.start()),      #
-# aunque todavía no va a monitorizar ningún fichero ni directorio.					  #
+# Ahora instancio la clase ThreadedNotifier, que creará un objeto notificador a modo
+# de hilo. Luego comienza el notificador (se crea el hilo con notifier.start()),
+# aunque todavía no va a monitorizar ningún fichero ni directorio.
 #######################################################################################
 
 	notifier = pyinotify.ThreadedNotifier(wm, EventHandler())
 	notifier.start()
 
 #######################################################################################
-# Seguidamente le añado algo para monitorizar con wm.add_watch(), en este caso le	  # 
-# añado lo que me pasa optparse que en mi caso por defecto es el directorio ./logs_ftp#
-# que es donde se encuentran los supuestos diferentes logs de los servidores FTP.	  #
-# Si quiero dejar de vigilar ese directorio/fichero haría: 							  #
+# Seguidamente le añado algo para monitorizar con wm.add_watch(), en este caso le
+# añado lo que me pasa optparse que en mi caso por defecto es el directorio ./logs_ftp
+# que es donde se encuentran los supuestos diferentes logs de los servidores FTP.
+# Si quiero dejar de vigilar ese directorio/fichero haría:
 #																					  #
-#								wm.rm_watch(wdd[opts.dirLogs])						  #
+#	wm.rm_watch(wdd[opts.dirLogs])
 #																					  #
-# Si ademas quiero dejar de vigilar los subdirectorios: 							  #
+# Si ademas quiero dejar de vigilar los subdirectorios:
 #																					  #
-#								wm.rm_watch(wdd[opts.dirLogs], rec=True)			  #
+#	wm.rm_watch(wdd[opts.dirLogs], rec=True)
 #																					  #
-# También puedo hacer esto para eliminar todo lo que se estaba vigilando:			  #
+# También puedo hacer esto para eliminar todo lo que se estaba vigilando:
 #																					  #
-#								wm.rm_watch(wdd.values())							  #
+#	wm.rm_watch(wdd.values())
 # 																					  #
-# En este caso vamos a vigilar sólo lo indicado en la máscara (mask)  			      #
-# Le indico también que vigile en los subdirectorios (rec=True)     				  #
+# En este caso vamos a vigilar sólo lo indicado en la máscara (mask)
+# Le indico también que vigile en los subdirectorios (rec=True)
 #######################################################################################
 
 	wdd = wm.add_watch(opts.dirLogs, mask, rec=True)
 
 #######################################################################################
-# Me creo una lista vacia para luego ir añadiendo procesos o hilos, tantos como me	  #
-# recoga el optparse en la opción opts.numero (con la opcion -n), que por 			  #
-# defecto es 4. A medida que los meto en la lista los voy lanzando.					  #
-# Por defecto el script trabaja con hilos a no ser que opts.procesos sea True		  #
-# Este caso se dará con la opción -p		  										  #
+# Me creo una lista vacia para luego ir añadiendo procesos o hilos, tantos como me
+# recoga el optparse en la opción opts.numero (con la opcion -n), que por
+# defecto es 4. A medida que los meto en la lista los voy lanzando.
+# Por defecto el script trabaja con hilos a no ser que opts.procesos sea True
+# Este caso se dará con la opción -p
 #######################################################################################
 
 	lista=[]	
@@ -266,6 +266,6 @@ if __name__ == '__main__':
 		notifier.stop()
 
 #######################################################################################
-# Esto último lo que hace es borrar todo lo que se esté vigilando y luego parar el    #
-# notificador-chivato																  #
+# Esto último lo que hace es borrar todo lo que se esté vigilando y luego parar el
+# notificador-chivato
 #######################################################################################
