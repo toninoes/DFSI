@@ -6,11 +6,10 @@ import sys
 from scapy.all import RandMAC, sendp, Ether, IP, UDP, BOOTP, DHCP, RandString
 
 #####################################################################################
-# 						Necesario tener instalado scapy								#
-# 					   sudo apt-get install python-scapy							#
+# Necesario tener instalado scapy: sudo apt-get install python-scapy
 #####################################################################################
-# Necesario ejecutar script como administrador, ya que scapy necesita tener control	#
-# privilegiado sobre las interfaces.												#
+# Necesario ejecutar script como administrador, ya que scapy necesita tener control
+# privilegiado sobre las interfaces.
 #####################################################################################
 
 def proc_opts(): 
@@ -23,7 +22,7 @@ def proc_opts():
 	return comlist.parse_args(sys.argv)
 
 #####################################################################################
-# 								INICIO DEL PROGRAMA									#
+#	INICIO DEL PROGRAMA
 #####################################################################################
 
 opts, args = proc_opts()
@@ -37,28 +36,28 @@ while num < int(opts.numero):
 	num += 1
 
 #####################################################################################
-# Para crear un paquete DHCPDiscovery necesitamos:									#
+# Para crear un paquete DHCPDiscovery necesitamos:
 #																					#
 # -Capa de enlace (Ether):															#
-#		src: MAC de origen, o MAC del equipo que hace la peticion dhcp. Gracias a	#
-#			 la funcion RandMAC de scapy se crea una MAC aleatoriamente.			#
+#	src: MAC de origen, o MAC del equipo que hace la peticion dhcp. Gracias a
+#	la funcion RandMAC de scapy se crea una MAC aleatoriamente.
 #																					#
-#		dst: MAC de destino, que debe ser "ff:ff:ff:ff:ff:ff", ya que el que hace	#
-#			 la peticion dhcp no sabe que MAC tiene el servidor DHCP, con lo que	#
-#			 envia una trama broadcast que ven todos los equipos, con el objetivo	#
-#			 de descubrir un servidor DHCP.											#
+#	dst: MAC de destino, que debe ser "ff:ff:ff:ff:ff:ff", ya que el que hace
+#	la peticion dhcp no sabe que MAC tiene el servidor DHCP, con lo que
+#	envia una trama broadcast que ven todos los equipos, con el objetivo
+#	de descubrir un servidor DHCP.
 #																					#		
 # -Capa de Red (IP):																#
-#		src: La IP del equipo que hace la peticion, en este caso debe ser todo		#
-#			 a ceros, porque aun no tiene IP.										#
+#	src: La IP del equipo que hace la peticion, en este caso debe ser todo
+#	a ceros, porque aun no tiene IP.
 #																					#
-#		dst: es la red de difusion, 255.255.255.255, que tambien llega a todos los	#
-#			 equipos de la red.														#
+#	dst: es la red de difusion, 255.255.255.255, que tambien llega a todos los
+#	equipos de la red.
 #																					#
-# -Capa de Transoprte (que use UDP):												#
-#		Con puerto origen 68 y destino 67											#
+# -Capa de Transoprte (que use UDP):
+#	Con puerto origen 68 y destino 67
 #																					#
-# -Capa de Aplicacion (BOOTP, DHCP):												#
-#		Donde se definen los parametro necesarios para completar un paquete			#
-#		DHCP Discovery																#
+# -Capa de Aplicacion (BOOTP, DHCP):
+#	Donde se definen los parametro necesarios para completar un paquete
+#	DHCP Discovery																#
 #####################################################################################
